@@ -69,7 +69,7 @@ def create_movie(movie):
         close_connection(connection, cursor)
 
 movie1 = movie(None, "Toy Story", "John Lasseter", 1995, 81)
-# create_movie(movie1)
+create_movie(movie1)
 def get_movie(movie):
     try:
         connection, cursor = open_connection()
