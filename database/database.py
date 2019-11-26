@@ -55,7 +55,7 @@ def create_movie(movie):
     try:
         connection, cursor = open_connection()
 
-        query = "INSERT INTO movies VALUE (?, ?, ?, ?, ?)"
+        query = "INSERT INTO movies VALUES (?, ?, ?, ?, ?)"
         query_parameters = (movie.id, movie.movie_title, movie.director, movie.movie_year, movie.movie_time)
 
         cursor.execute(query, query_parameters)
@@ -68,10 +68,47 @@ def create_movie(movie):
     finally:
         close_connection(connection, cursor)
 
-movie1 = movie(1, "Toy Story"	"John Lasseter"	1995	81)
-create_movie(movie1)
-def get_movie(movie)
+movie1 = movie(None, "Toy Story", "John Lasseter", 1995, 81)
+# create_movie(movie1)
+def get_movie(movie):
     try:
         connection, cursor = open_connection()
 
-        query =
+        query = "SELECT * FROM movies WHERE id = (?) OR movie_title = (?) OR director = (?) OR movie_year = (?) OR movie_time = (?)"
+
+        query_parameters = (movie.id, movie.movie_title, movie.director, movie.movie_year, movie.movie_time)
+
+        for row in cursor.execute(query, query_parameters):
+            print(row)
+
+        connection.commit()
+
+    except sqlite3.DataError as error:
+        print(error)
+
+    finally:
+        close_connection(connection, cursor)
+
+get_movie(movie1)
+
+def update_movie(movie):
+    try:
+        connection, cursor = open_connection()
+
+        query = "UPDATE movies SET movie_title = 'Belekas' WHERE movie_title = (?) OR id = (?) OR director = (?) OR movie_year = (?) OR movie_time = (?)"
+
+        query_parameters = (movie.movie_title, movie.id, movie.director, movie.movie_year, movie.movie_time)
+
+        cursor.execute(query, query_parameters)
+
+        connection.commit()
+
+    except sqlite3.DataError as error:
+        print(error)
+
+    finally:
+        close_connection(connection, cursor)
+
+
+update_movie(movie1)
+get_movie(movie1)
